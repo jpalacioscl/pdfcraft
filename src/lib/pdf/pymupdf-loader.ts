@@ -826,9 +826,10 @@ json.dumps(layers)
           const pdfData = new Uint8Array(arrayBuffer);
           const { layerId, visible } = options;
 
-          // Use unique file names to avoid race conditions during concurrent processing
           const uid = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
           const inputPath = `/input_ocg_toggle_${uid}.pdf`;
+          const targetVisible = visible ? 'True' : 'False';
+          const xrefNum = parseInt(layerId, 10) || 0;
 
           pyodide.FS.writeFile(inputPath, pdfData);
 
@@ -838,8 +839,13 @@ import base64
 
 doc = pymupdf.open("${inputPath}")
 
-# Toggle OCG visibility - simplified implementation
-# In production, you'd use set_ocg_state
+xref = ${xrefNum}
+target_visible = ${targetVisible}
+
+# set_ocg controls the default-configuration visibility of an OCG (PyMuPDF 1.21+)
+ocgs = doc.get_ocgs() or {}
+if xref in ocgs:
+    doc.set_ocg(xref, on=target_visible)
 
 pdf_bytes = doc.tobytes()
 doc.close()
@@ -911,21 +917,70 @@ str(xref) + "|||" + base64.b64encode(pdf_bytes).decode('ascii')
         async deleteOCGLayer(file: File, options: any): Promise<{ pdf: Blob }> {
           const arrayBuffer = await file.arrayBuffer();
           const pdfData = new Uint8Array(arrayBuffer);
+          const { layerId } = options;
 
-          // Use unique file names to avoid race conditions during concurrent processing
           const uid = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
           const inputPath = `/input_ocg_del_${uid}.pdf`;
+          const xrefNum = parseInt(layerId, 10) || 0;
 
           pyodide.FS.writeFile(inputPath, pdfData);
 
           const result = await pyodide.runPythonAsync(`
 import pymupdf
 import base64
+import re
 
 doc = pymupdf.open("${inputPath}")
 
-# Note: PyMuPDF doesn't have direct OCG deletion API
-# This is a placeholder - in production you'd need to modify the PDF structure
+target_xref = ${xrefNum}
+
+def remove_xref_from_pdf_array(arr_str, xref_to_remove):
+    """Remove an indirect reference (xref 0 R) from a PDF array string."""
+    pattern = rf'\\b{xref_to_remove}\\s+0\\s+R\\b'
+    result = re.sub(pattern, '', arr_str)
+    # Collapse multiple spaces into one, preserving bracket structure
+    result = re.sub(r'\\s+', ' ', result)
+    return result.strip()
+
+ocgs = doc.get_ocgs() or {}
+
+if target_xref in ocgs:
+    catalog = doc.pdf_catalog()
+
+    # Navigate OCProperties to remove the OCG from all relevant arrays
+    oc_result = doc.xref_get_key(catalog, "OCProperties")
+
+    if oc_result and oc_result[0] == "xref":
+        oc_xref = int(oc_result[1])
+
+        # Remove from /OCGs array
+        ocgs_arr = doc.xref_get_key(oc_xref, "OCGs")
+        if ocgs_arr and ocgs_arr[0] == "array":
+            new_arr = remove_xref_from_pdf_array(ocgs_arr[1], target_xref)
+            doc.xref_set_key(oc_xref, "OCGs", new_arr)
+
+        # Remove from /D (default config) ON/OFF arrays
+        d_result = doc.xref_get_key(oc_xref, "D")
+        if d_result and d_result[0] == "xref":
+            d_xref = int(d_result[1])
+
+            for arr_key in ("ON", "OFF"):
+                arr_val = doc.xref_get_key(d_xref, arr_key)
+                if arr_val and arr_val[0] == "array":
+                    doc.xref_set_key(d_xref, arr_key,
+                        remove_xref_from_pdf_array(arr_val[1], target_xref))
+
+        # Also clean up any extra /Configs entries
+        configs_result = doc.xref_get_key(oc_xref, "Configs")
+        if configs_result and configs_result[0] == "array":
+            # Parse individual config xrefs from the array string
+            config_xrefs = list(map(int, re.findall(r'(\\d+)\\s+0\\s+R', configs_result[1])))
+            for cfg_xref in config_xrefs:
+                for arr_key in ("ON", "OFF"):
+                    arr_val = doc.xref_get_key(cfg_xref, arr_key)
+                    if arr_val and arr_val[0] == "array":
+                        doc.xref_set_key(cfg_xref, arr_key,
+                            remove_xref_from_pdf_array(arr_val[1], target_xref))
 
 pdf_bytes = doc.tobytes()
 doc.close()
@@ -951,10 +1006,17 @@ base64.b64encode(pdf_bytes).decode('ascii')
         async renameOCGLayer(file: File, options: any): Promise<{ pdf: Blob }> {
           const arrayBuffer = await file.arrayBuffer();
           const pdfData = new Uint8Array(arrayBuffer);
+          const { layerId, newName } = options;
 
-          // Use unique file names to avoid race conditions during concurrent processing
           const uid = `${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
           const inputPath = `/input_ocg_rename_${uid}.pdf`;
+          const xrefNum = parseInt(layerId, 10) || 0;
+          // Escape the name for safe embedding inside a Python string literal
+          const safeName = (newName || 'Layer')
+            .replace(/\\/g, '\\\\')
+            .replace(/"/g, '\\"')
+            .replace(/\n/g, '\\n')
+            .replace(/\r/g, '');
 
           pyodide.FS.writeFile(inputPath, pdfData);
 
@@ -964,8 +1026,14 @@ import base64
 
 doc = pymupdf.open("${inputPath}")
 
-# Note: Renaming OCG requires modifying the OCG object directly
-# This is a simplified implementation
+target_xref = ${xrefNum}
+new_name = "${safeName}"
+
+ocgs = doc.get_ocgs() or {}
+if target_xref in ocgs:
+    # Escape special PDF string characters before writing
+    escaped = new_name.replace('\\\\', '\\\\\\\\').replace('(', '\\\\(').replace(')', '\\\\)')
+    doc.xref_set_key(target_xref, "Name", f"({escaped})")
 
 pdf_bytes = doc.tobytes()
 doc.close()

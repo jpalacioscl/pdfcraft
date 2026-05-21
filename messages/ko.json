@@ -399,7 +399,8 @@
     "invalidPageRange": "잘못된 페이지 범위가 지정되었습니다.",
     "invalidOptions": "잘못된 옵션이 제공되었습니다.",
     "unknown": "예기치 않은 오류가 발생했습니다. 다시 시도해 주세요.",
-    "toolNotFound": "Tool Not Found"
+    "toolNotFound": "Tool Not Found",
+    "invalidPassword": "입력한 비밀번호가 올바르지 않습니다. 확인 후 다시 시도해 주세요."
   },
   "home": {
     "hero": {

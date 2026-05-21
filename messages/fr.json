@@ -399,7 +399,8 @@
     "invalidPageRange": "Plage de pages invalide spécifiée.",
     "invalidOptions": "Options invalides fournies.",
     "unknown": "Une erreur inattendue s'est produite. Veuillez réessayer.",
-    "toolNotFound": "Tool Not Found"
+    "toolNotFound": "Tool Not Found",
+    "invalidPassword": "Le mot de passe que vous avez saisi est incorrect. Veuillez vérifier et réessayer."
   },
   "home": {
     "hero": {

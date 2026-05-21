@@ -8,8 +8,32 @@ import { ToolCard } from '@/components/tools/ToolCard';
 
 // Mock next/link
 vi.mock('next/link', () => ({
-  default: ({ children, href, ...props }: { children: React.ReactNode; href: string }) => 
+  default: ({ children, href, ...props }: { children: React.ReactNode; href: string }) =>
     React.createElement('a', { href, ...props }, children),
+}));
+
+// Mock next-intl
+vi.mock('next-intl', () => ({
+  useTranslations: () => (key: string) => key,
+}));
+
+// Mock FavoriteButton to avoid localStorage dependency
+vi.mock('@/components/ui/FavoriteButton', () => ({
+  FavoriteButton: () => null,
+}));
+
+// Mock Header and Footer to avoid router/navigation dependencies
+vi.mock('@/components/layout/Header', () => ({
+  Header: () => null,
+}));
+vi.mock('@/components/layout/Footer', () => ({
+  Footer: () => null,
+}));
+
+// Mock next/navigation for Header
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
+  usePathname: () => '/',
 }));
 
 describe('Tool Component Property Tests', () => {
@@ -105,13 +129,11 @@ describe('Tool Component Property Tests', () => {
           fc.constantFrom(...tools),
           (tool) => {
             const { unmount } = render(<ToolCard tool={tool} locale="en" />);
-            
+
             const iconElement = screen.getByTestId('tool-card-icon');
-            const svgElement = iconElement.querySelector('svg');
-            
-            expect(svgElement).toBeInTheDocument();
-            expect(svgElement).toHaveAttribute('data-icon', tool.icon);
-            
+            expect(iconElement).toBeInTheDocument();
+            expect(iconElement).toHaveAttribute('data-icon', tool.icon);
+
             unmount();
             return true;
           }

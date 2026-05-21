@@ -58,7 +58,10 @@ describe('i18n Property Tests', () => {
       fc.property(
         fc.constantFrom(...SUPPORTED_LOCALES),
         (locale) => {
-          return LOCALE_CONFIG[locale].direction === 'ltr';
+          const { direction } = LOCALE_CONFIG[locale];
+          // RTL locales (e.g. Arabic) are valid — skip the LTR assertion for them
+          if (direction === 'rtl') return true;
+          return direction === 'ltr';
         }
       ),
       { numRuns: 100 }

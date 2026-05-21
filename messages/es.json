@@ -399,7 +399,8 @@
     "invalidPageRange": "Rango de páginas inválido especificado.",
     "invalidOptions": "Opciones inválidas proporcionadas.",
     "unknown": "Ocurrió un error inesperado. Por favor intenta de nuevo.",
-    "toolNotFound": "Tool Not Found"
+    "toolNotFound": "Tool Not Found",
+    "invalidPassword": "La contraseña introducida es incorrecta. Verifíquela e inténtelo de nuevo."
   },
   "home": {
     "hero": {

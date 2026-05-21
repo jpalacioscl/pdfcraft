@@ -399,7 +399,8 @@
     "invalidPageRange": "無効なページ範囲が指定されました。",
     "invalidOptions": "無効なオプションが指定されました。",
     "unknown": "予期しないエラーが発生しました。もう一度お試しください。",
-    "toolNotFound": "Tool Not Found"
+    "toolNotFound": "Tool Not Found",
+    "invalidPassword": "入力したパスワードが正しくありません。確認してもう一度お試しください。"
   },
   "home": {
     "hero": {

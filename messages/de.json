@@ -399,7 +399,8 @@
     "invalidPageRange": "Ungültiger Seitenbereich angegeben.",
     "invalidOptions": "Ungültige Optionen angegeben.",
     "unknown": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
-    "toolNotFound": "Tool Not Found"
+    "toolNotFound": "Tool Not Found",
+    "invalidPassword": "Das eingegebene Passwort ist falsch. Bitte überprüfen und erneut versuchen."
   },
   "home": {
     "hero": {

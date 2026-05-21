@@ -9,6 +9,10 @@ vi.mock('next-intl', () => ({
     const translations: Record<string, string> = {
       'buttons.upload': 'Upload Files',
       'buttons.cancel': 'Cancel',
+      'fileUploader.dragDrop': 'Drag and drop files here, or click to browse',
+      'fileUploader.dropToUpload': 'Drop files to upload',
+      'fileUploader.support': 'Supports',
+      'fileUploader.paste': 'paste from clipboard',
     };
     if (key === 'fileTooLarge') {
       return `File size exceeds ${params?.maxSize}MB limit`;
@@ -193,7 +197,7 @@ describe('FileUploader', () => {
       
       fireEvent.dragEnter(dropZone, { dataTransfer });
       
-      expect(screen.getByText('Drop files here')).toBeInTheDocument();
+      expect(screen.getByText('Drop files to upload')).toBeInTheDocument();
     });
 
     it('hides drag overlay when dragging leaves', () => {
@@ -204,10 +208,10 @@ describe('FileUploader', () => {
       const dataTransfer = createDataTransfer([mockFile]);
       
       fireEvent.dragEnter(dropZone, { dataTransfer });
-      expect(screen.getByText('Drop files here')).toBeInTheDocument();
+      expect(screen.getByText('Drop files to upload')).toBeInTheDocument();
       
       fireEvent.dragLeave(dropZone, { dataTransfer });
-      expect(screen.queryByText('Drop files here')).not.toBeInTheDocument();
+      expect(screen.queryByText('Drop files to upload')).not.toBeInTheDocument();
     });
 
     it('handles file drop', () => {

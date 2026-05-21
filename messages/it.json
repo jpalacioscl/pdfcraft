@@ -412,7 +412,8 @@
     "invalidPageRange": "Intervallo di pagine non valido.",
     "invalidOptions": "Opzioni non valide fornite.",
     "unknown": "Si è verificato un errore imprevisto. Riprova.",
-    "toolNotFound": "Strumento non trovato"
+    "toolNotFound": "Strumento non trovato",
+    "invalidPassword": "La password inserita non è corretta. Verificarla e riprovare."
   },
   "home": {
     "hero": {
@@ -1912,9 +1913,9 @@
     "markdownToPdf": {
       "uploadLabel": "Carica Markdown File",
       "uploadDescription": "Trascina e rilascia un file .md o .markdown da convertire in PDF.",
-      "manualInput": "Write Markdown",
+      "manualInput": "Scrivi Markdown",
       "uploadFile": "Carica File",
-      "editorLabel": "Markdown Editor",
+      "editorLabel": "Editor Markdown",
       "previewLabel": "Anteprima",
       "showPreview": "Mostra anteprima",
       "hidePreview": "Nascondi anteprima",

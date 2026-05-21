@@ -412,7 +412,8 @@
     "invalidPageRange": "指定的頁面範圍無效。",
     "invalidOptions": "提供的選項無效。",
     "unknown": "發生意外錯誤。請重試。",
-    "toolNotFound": "工具未找到"
+    "toolNotFound": "工具未找到",
+    "invalidPassword": "您輸入的密碼不正確，請確認後再試一次。"
   },
   "home": {
     "hero": {
@@ -1400,15 +1401,32 @@
       "successMessage": "PDF扁平化成功！"
     },
     "bookmark": {
-      "uploadLabel": "上傳 PDF 文件",
-      "uploadDescription": "拖放 PDF 文件到此處以編輯書籤。",
+      "uploadLabel": "上傳 PDF 檔案",
+      "uploadDescription": "將 PDF 檔案拖放到此處以編輯書籤。",
       "pdfPreview": "PDF 預覽",
       "bookmarksTitle": "書籤",
-      "addBookmark": "添加書籤",
-      "noBookmarks": "暫無書籤。點擊“添加書籤”開始創建。",
-      "hint": "點擊書籤可預覽對應頁面。使用 +/✎/× 進行添加子節點、編輯或刪除。",
-      "saveButton": "保存書籤",
-      "successMessage": "書籤保存成功！"
+      "addBookmark": "新增書籤",
+      "noBookmarks": "暫無書籤。點選「新增書籤」開始建立。",
+      "hint": "點選書籤可預覽對應頁面。使用 +/✎/× 新增子節點、編輯或刪除。",
+      "saveButton": "儲存書籤",
+      "successMessage": "書籤已儲存！",
+      "sort": "排序",
+      "sortByPage": "依頁碼排序",
+      "extractExisting": "擷取現有書籤",
+      "dragHint": "拖曳以重新排序書籤",
+      "extracting": "正在擷取現有書籤...",
+      "replaceConfirm": "這會取代目前的書籤。是否繼續？",
+      "noBookmarksFound": "在此 PDF 中未找到書籤。",
+      "failedExtract": "擷取書籤失敗。",
+      "title": "標題",
+      "page": "頁碼",
+      "color": "顏色",
+      "style": "樣式",
+      "normal": "一般",
+      "bold": "粗體",
+      "italic": "斜體",
+      "boldItalic": "粗體斜體",
+      "setToCurrentPage": "設為目前頁面"
     },
     "pageNumbers": {
       "uploadLabel": "上傳PDF檔案",
@@ -1540,14 +1558,15 @@
       "successMessage": "印章新增成功！"
     },
     "removeAnnotations": {
-      "uploadLabel": "上傳PDF檔案",
-      "uploadDescription": "拖放PDF檔案到此處。",
-      "optionsTitle": "移除選項",
-      "processButton": "移除註釋",
-      "successMessage": "註釋移除成功！",
-      "removeComments": "移除評論",
-      "removeHighlights": "移除高亮",
-      "removeLinks": "移除連結"
+      "uploadLabel": "上傳 PDF 檔案",
+      "uploadDescription": "將 PDF 檔案拖放到此處。",
+      "optionsTitle": "刪除選項",
+      "removeAllLabel": "刪除所有註解（評論、標註、連結等）",
+      "processButton": "刪除註解",
+      "successMessage": "註解已刪除！",
+      "removeComments": "刪除評論",
+      "removeHighlights": "刪除高亮",
+      "removeLinks": "刪除連結"
     },
     "formFiller": {
       "uploadLabel": "上傳PDF檔案",
@@ -1935,34 +1954,6 @@
       "maintainAspectRatio": "保持縱橫比",
       "applyButton": "修復頁面尺寸",
       "successMessage": "頁面尺寸修復成功！"
-          },
-    "bookmark": {
-      "uploadLabel": "上傳 PDF 檔案",
-      "uploadDescription": "將 PDF 檔案拖放到此處以編輯書籤。",
-      "pdfPreview": "PDF 預覽",
-      "bookmarksTitle": "書籤",
-      "addBookmark": "新增書籤",
-      "noBookmarks": "暫無書籤。點選「新增書籤」開始建立。",
-      "hint": "點選書籤可預覽對應頁面。使用 +/✎/× 新增子節點、編輯或刪除。",
-      "saveButton": "儲存書籤",
-      "successMessage": "書籤已儲存！",
-      "sort": "排序",
-      "sortByPage": "依頁碼排序",
-      "extractExisting": "擷取現有書籤",
-      "dragHint": "拖曳以重新排序書籤",
-      "extracting": "正在擷取現有書籤...",
-      "replaceConfirm": "這會取代目前的書籤。是否繼續？",
-      "noBookmarksFound": "在此 PDF 中未找到書籤。",
-      "failedExtract": "擷取書籤失敗。",
-      "title": "標題",
-      "page": "頁碼",
-      "color": "顏色",
-      "style": "樣式",
-      "normal": "一般",
-      "bold": "粗體",
-      "italic": "斜體",
-      "boldItalic": "粗體斜體",
-      "setToCurrentPage": "設為目前頁面"
     },
     "decryptPdf": {
       "uploadLabel": "上傳PDF檔案",
@@ -2242,17 +2233,6 @@
     "pdfReader": {
       "uploadLabel": "開啟 PDF 檔案",
       "uploadDescription": "開啟 PDF 檔案以供閱讀與檢視。"
-    },
-    "removeAnnotations": {
-      "uploadLabel": "上傳 PDF 檔案",
-      "uploadDescription": "將 PDF 檔案拖放到此處。",
-      "optionsTitle": "刪除選項",
-      "removeAllLabel": "刪除所有註解（評論、標註、連結等）",
-      "processButton": "刪除註解",
-      "successMessage": "註解已刪除！",
-      "removeComments": "刪除評論",
-      "removeHighlights": "刪除高亮",
-      "removeLinks": "刪除連結"
     },
     "findAndRedact": {
       "uploadLabel": "上傳 PDF 檔案",

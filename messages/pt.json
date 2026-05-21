@@ -399,7 +399,8 @@
     "invalidPageRange": "Intervalo de páginas inválido especificado.",
     "invalidOptions": "Opções inválidas fornecidas.",
     "unknown": "Ocorreu um erro inesperado. Por favor, tente novamente.",
-    "toolNotFound": "Ferramenta não encontrada"
+    "toolNotFound": "Ferramenta não encontrada",
+    "invalidPassword": "A senha que você digitou está incorreta. Verifique e tente novamente."
   },
   "home": {
     "hero": {
@@ -921,9 +922,9 @@
       "qualityHighDesc": "Compressão moderada, preserva mais a estrutura",
       "qualityMaximum": "Máxima",
       "qualityMaximumDesc": "Compressão mínima, preserva a qualidade original",
-      "optimizeImages": "Optimize embedded images",
+      "optimizeImages": "Otimizar imagens incorporadas",
       "removeMetadata": "Remover metadados (título, autor etc.)",
-      "compressButton": "Compress PDFs",
+      "compressButton": "Comprimir PDFs",
       "successMessage": "PDF comprimido com sucesso!",
       "batchSuccessMessage": "Todos os arquivos PDF foram comprimidos com sucesso!",
       "downloadAllZip": "Baixar tudo como ZIP",
@@ -1258,7 +1259,7 @@
       "file2Label": "Segundo PDF (modificado)",
       "uploadFile2": "Enviar segundo PDF",
       "uploadDescription": "Arraste e solte ou clique para procurar",
-      "compareButton": "Compare PDFs",
+      "compareButton": "Comparar PDFs",
       "resultsTitle": "Resultados da comparação",
       "newComparison": "Nova comparação",
       "viewMode": "Modo de visualização:",
