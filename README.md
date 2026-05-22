@@ -319,6 +319,14 @@ services:
 - `npm run lint`: Lints the code using ESLint.
 - `npm run test`: Runs tests using Vitest.
 
+### Quick Start Script
+
+A convenience script is included to start the development server from any directory:
+
+```bash
+./start.sh
+```
+
 ## 🚀 Production Deployment Guide
 
 PDFCraft is configured for static export (`output: 'export'`), which means it can be deployed to any service that supports static website hosting without requiring a Node.js server.
